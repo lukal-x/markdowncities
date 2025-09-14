@@ -1,4 +1,5 @@
 from markdown import markdown
+from markdown.extensions import toc
 from types import SimpleNamespace
 
 import os
@@ -6,29 +7,43 @@ import os
 var = SimpleNamespace(
     start="<!-- KyuWeb Doc Start /-->",
     end="<!-- KyuWeb Doc End /-->",
-    meta="<!-- Metadata /-->"
+    meta="<!-- Metadata /-->",
 )
 
-with open("source/template.html", "r") as f:
+with open("sources/template.html", "r") as f:
     template = f.read()
 
-    for md in os.listdir("source"):
+    for md in os.listdir("sources"):
         if not md.endswith(".md"):
             continue
 
-        with open(f"source/{md}") as mdf:
+        with open(f"sources/{md}") as mdf:
             content = mdf.read()
-            title = md.rstrip(".md").replace("-", " ").capitalize()
-        
+            slug = md.rstrip(".md")
+
+            *_, design = slug.split(".")
+            has_design = design != slug
+
+            if has_design:
+                if os.path.exists(f"sources/template.{design}.html"):
+                    with open(f"sources/template.{design}.html", "r") as f:
+                        template = f.read()
+
+                slug = slug.replace(f".{design}", "")
+
+            title = slug.replace("-", " ").capitalize()
+
             result = template
 
             for k, v in {
-                "start": markdown(content),
+                "start": markdown(
+                    content, extensions=["attr_list", toc.TocExtension(permalink=True)]
+                ),
                 "end": "",
-                "meta": f"<title>{title}</title>"
+                "meta": f"<title>{title}</title>",
             }.items():
                 result = result.replace(getattr(var, k), v)
 
-            newfile = md.rstrip(".md") + ".html"
-            with open(f"build/{newfile}", "w") as htmf:
+            newfile = slug + ".html"
+            with open(f"docs/{newfile}", "w") as htmf:
                 htmf.write(result)

@@ -4,11 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About</title>
+    <!-- Metadata /-->
     <style>
       body {
-	  background: #eee;
-	  color: #111;
+	  background: #fff;
+	  color: #222;
       }
       blockquote {
 	  padding: 1em;
@@ -17,12 +17,26 @@
       .container {
 	  margin: 10%;
       }
+      a.headerlink {
+	  opacity: 0;
+      }
+      a.headerlink:hover {
+	  opacity: 1;
+      }
+      @media (prefers-color-scheme: dark) {
+	  body {
+	      color: #eee;
+	      background: #333;
+	  }
+
+	  a {
+	      color: turquoise;
+	  }
+      }
     </style>
   </head>
   <body>
-    <div class="container"><h1>About</h1>
-<p>This is a site built with markdowncities. See my <a href="index.html">home page</a></p>
-<p>Learn more about <a href="https://markdowncities.ftp.sh">markdowncities</a>, or browse its <a href="https://github.com/lukal-x/markdowncities">source code</a></p>
-</div>
+    <div class="container"><!-- KyuWeb Doc Start /-->
+<!-- KyuWeb Doc End /--></div>
   </body>
 </html>
