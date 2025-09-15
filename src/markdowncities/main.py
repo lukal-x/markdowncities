@@ -37,7 +37,7 @@ with open("sources/template.html", "r") as f:
 
             for k, v in {
                 "start": markdown(
-                    content, extensions=["attr_list", toc.TocExtension(permalink=True)]
+                    content, extensions=["attr_list", "fenced_code", toc.TocExtension(permalink=True)]
                 ),
                 "end": "",
                 "meta": f"<title>{title}</title>",
