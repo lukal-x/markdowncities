@@ -54,14 +54,25 @@
       a.headerlink:hover {
 	  opacity: 1;
       }
+      pre:has(code) {
+	  background: #ddd;
+	  overflow: auto;
+      }                         
       @media (prefers-color-scheme: dark) {
 	  body {
 	      color: #eee;
 	      background: #333;
 	  }
 
+	  blockquote {
+	      background: #222;
+	  }
+
 	  a {
-	      color: turquoise;
+	      color: #fff;
+	  }
+	  a:visited {
+	      color: #bbb;
 	  }
       }
     </style>
